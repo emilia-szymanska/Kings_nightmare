@@ -1,4 +1,5 @@
 #include "../inc/Board.hh"
+#include "../inc/DFS.hh"
 #include <iostream>
 using namespace std;
 

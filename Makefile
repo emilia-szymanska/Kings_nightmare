@@ -1,8 +1,14 @@
-kings_nightmare: obj obj/main.o obj/Board.o
-	g++ -g -o kings_nightmare obj/main.o obj/Board.o 
+kings_nightmare: obj obj/main.o obj/Board.o obj/DFS.o
+	g++ -g -o kings_nightmare obj/main.o obj/Board.o obj/DFS.o 
 
-obj/main.o: src/main.cpp inc/Board.hh
+obj/main.o: src/main.cpp inc/Board.hh inc/DFS.hh
 	g++ -g -c -o obj/main.o src/main.cpp
+
+obj/DFS.o: src/DFS.cpp inc/DFS.hh inc/GraphList.hh
+	g++ -g -c -o obj/DFS.o src/DFS.cpp 
+
+obj/Board.o: src/Board.cpp inc/Board.hh inc/Matrix.hh
+	g++ -g -c -o obj/Board.o src/Board.cpp 
 
 #obj/GameManagement.o: src/GameManagement.cpp inc/GameManagement.hh inc/MinMax.hh
 #	g++ -g -c -o obj/GameManagement.o src/GameManagement.cpp 
@@ -10,8 +16,3 @@ obj/main.o: src/main.cpp inc/Board.hh
 #obj/MinMax.o: src/MinMax.cpp inc/MinMax.hh inc/WinCondition.hh
 #	g++ -g -c -o obj/MinMax.o src/MinMax.cpp 
 
-#obj/WinCondition.o: src/WinCondition.cpp inc/WinCondition.hh inc/Board.hh
-#	g++ -g -c -o obj/WinCondition.o src/WinCondition.cpp 
-
-obj/Board.o: src/Board.cpp inc/Board.hh inc/Matrix.hh
-	g++ -g -c -o obj/Board.o src/Board.cpp 
