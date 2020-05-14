@@ -1,6 +1,6 @@
 #include "../inc/Board.hh"
 
-Board::Board(vector<pair<unsigned int, char> > & vectorOfFigures)
+Board::Board(const vector<pair<unsigned int, char> > & vectorOfFigures)
 {
 	this->Rook.first = vectorOfFigures[0].first;
 	this->King.first = vectorOfFigures[1].first;
@@ -30,8 +30,11 @@ Board::Board(vector<pair<unsigned int, char> > & vectorOfFigures)
 			}
 			else
 			{
-				if(this->matrixOfLetters(i,j) == vectorOfFigures[1].second) this->King.second = {i,j};
-				else this->Knight.second = {i,j};
+				if(this->matrixOfLetters(i,j) == vectorOfFigures[1].second) 
+					this->King.second = {i,j};
+				else if(this->matrixOfLetters(i,j) == vectorOfFigures[2].second) 
+					this->Knight.second = {i,j};
+			
 			}
 		}
 	}	
@@ -153,3 +156,27 @@ void Board::resetBoard()
 }
 
 
+vector<pair<unsigned int, unsigned int> > Board::knightsPossibleMoves()
+{
+	int row, column;
+	int dimension = this->dimension;
+	vector<pair<unsigned int, unsigned int> > result;	
+	
+	row = ((this->Knight).second).first;
+	column = ((this->Knight).second).second;
+
+	if(row >= 1  and column <= dimension - 3 and this->matrixOfFields(row-1, column+2) == 0) result.push_back({row-1, column+2});			//2 right, 1 up
+	if(row <= dimension - 2  and column <= dimension - 3 and this->matrixOfFields(row+1, column+2) == 0) result.push_back({row+1, column+2});	//2 right, 1 down
+	
+	if(row >= 1  and column >= 2 and this->matrixOfFields(row-1, column-2) == 0) result.push_back({row-1, column-2});				//2 left, 1 up
+	if(row <= dimension - 2  and column >= 2 and this->matrixOfFields(row+1, column-2) == 0) result.push_back({row+1, column-2});			//2 left, 1 down
+	
+	if(row >= 2  and column >= 1 and this->matrixOfFields(row-2, column-1) == 0) result.push_back({row-2, column-1});				//1 left, 2 up
+	if(row >= 2  and column <= dimension - 2 and this->matrixOfFields(row-2, column+1) == 0) result.push_back({row-2, column+1});			//1 right, 2 up
+	
+	if(row <= dimension - 3  and column >= 1 and this->matrixOfFields(row+2, column-1) == 0) result.push_back({row+2, column-1});			//1 left, 2 down
+	if(row <= dimension - 3  and column <= dimension - 2 and this->matrixOfFields(row+2, column+1) == 0) result.push_back({row+2, column+1});	//1 right, 2 down
+
+	return result;
+
+}

@@ -25,14 +25,27 @@ int main()
 	}*/
 
 	vector<pair<unsigned int, char> > parki;
+	vector<pair<unsigned int, unsigned int> > rezultat;
 	parki.resize(3);
 	parki[0] = {1, 'H'};
 	parki[1] = {2, 'A'};
-	parki[2] = {3, 'S'};
+	parki[2] = {3, 'N'};
 
 
 	Board plansza = Board(parki);
+	plansza.displayBoardOfLetters();
+	plansza.displayBoard();
+		
 
+	//	void addMove(unsigned int i, unsigned int j, unsigned int Figure);
+	//	void removeMove(unsigned int i, unsigned int j);
+	//	bool isMovePossible(unsigned int i, unsigned int j, unsigned Figure);
+	
+	rezultat = plansza.knightsPossibleMoves();
+	int rozmiar = rezultat.size();
+
+	for(int i = 0; i < rozmiar; i++)
+		cout << rezultat[i].first << " " << rezultat[i].second << endl;
 
 	return 0;
 }

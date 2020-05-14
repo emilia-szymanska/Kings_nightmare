@@ -15,7 +15,7 @@ class Board
 	pair<unsigned int, pair<unsigned int, unsigned int> > Knight;
 
 	public:
-		Board(vector<pair<unsigned int, char > > & vectorOfFigures);
+		Board(const vector<pair<unsigned int, char > > & vectorOfFigures);
 
 		Matrix<unsigned int> & returnMatrixOfFields()
 		{
@@ -27,12 +27,13 @@ class Board
 			return this->dimension; 
 		}
 
+		void resetBoard();
 		void displayBoard();
 		void displayBoardOfLetters();
 		void addMove(unsigned int i, unsigned int j, unsigned int Figure);
 		void removeMove(unsigned int i, unsigned int j);
 		bool isMovePossible(unsigned int i, unsigned int j, unsigned Figure);
-		void resetBoard();
+		vector<pair<unsigned int, unsigned int> > knightsPossibleMoves();
 };
 
 #endif
