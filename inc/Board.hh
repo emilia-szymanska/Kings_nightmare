@@ -22,9 +22,24 @@ class Board
 			return this->matrixOfFields;
 		}	
 		
+		Matrix<char> & returnMatrixOfLetters()
+		{
+			return this->matrixOfLetters;
+		}	
+		
 		unsigned int returnSize()
 		{
 			return this->dimension; 
+		}
+		
+		unsigned int KnightsPosition()
+		{
+			return ((this->Knight).second.first * this->dimension + (this->Knight).second.second);
+		}
+
+		unsigned int KnightsID()
+		{
+			return this->Knight.first;
 		}
 
 		void resetBoard();
@@ -34,6 +49,7 @@ class Board
 		void removeMove(unsigned int i, unsigned int j);
 		bool isMovePossible(unsigned int i, unsigned int j, unsigned Figure);
 		vector<pair<unsigned int, unsigned int> > knightsPossibleMoves();
+		vector<pair<unsigned int, unsigned int> > knightsCheck();
 };
 
 #endif

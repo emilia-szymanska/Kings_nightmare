@@ -24,6 +24,11 @@ class GraphList
 		{
 			return listGraph[vertex];
 		}
+
+		unsigned int Size()
+		{
+			return this->numberOfElements;
+		}
 };
 
 #endif

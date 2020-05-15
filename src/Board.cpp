@@ -63,48 +63,7 @@ void Board::displayBoard()
 		}
 		cout << endl;
 	}
-
-
-	/*
-	for(unsigned int i = 0; i <= this->returnSize(); i++)
-	{
-		for(unsigned int j = 0; j <= this->returnSize(); j++)
-		{
-			if(i == 0) 							//displaying a row of numbers
-			{
-				if(j == 0)
-				{	cout << "   " << j+1;}
-				else {
-					if(j != this->returnSize()) 
-					{
-						if (j<10) cout << "  " << j+1;
-						else cout << " " << j+1;
-					}
-				}	
-			}
-			else 
-			{
-				if(j == 0) 
-				{
-					if( i >= 10) cout << i << " ";
-					else cout << i << "  ";				//displaying the number of the line
-				}
-				else 
-				{
-					if(this->matrixOfFields(i-1,j-1) == this->Rook.first) 
-					{
-						cout << playerName1.playerSign << "  ";
-					}
-					else 
-					{
-						if(this->matrixOfFields(i-1,j-1) == playerName2.playerID) cout << playerName2.playerSign << "  ";
-						else cout << "_  ";
-					}	
-				}
-			}
-		}
-		cout << endl;
-	}*/
+	
 	cout << endl;
 }
 
@@ -120,12 +79,18 @@ void Board::displayBoardOfLetters()
 		}
 		cout << endl;
 	}
+
+	cout << endl;
 }
 
 
 void Board::addMove(unsigned int i, unsigned int j, unsigned int Figure)
 {
-	if(this->matrixOfFields(i,j) == 0) this->matrixOfFields(i,j) = Figure;
+	if(this->matrixOfFields(i,j) == 0) 
+	{
+		this->matrixOfFields(i,j) = Figure;
+		this->Knight.second = {i,j};
+	}
 	else cout << "This field is already occupied"<<endl;
 }
 
@@ -180,3 +145,27 @@ vector<pair<unsigned int, unsigned int> > Board::knightsPossibleMoves()
 	return result;
 
 }
+		
+vector<pair<unsigned int, unsigned int> > Board::knightsCheck()
+{
+	int row, column;
+	int dimension = this->dimension;
+	vector<pair<unsigned int, unsigned int> > result;	
+	
+	row = ((this->King).second).first;
+	column = ((this->King).second).second;
+
+	if(row >= 1  and column <= dimension - 3 and this->matrixOfFields(row-1, column+2) == 0) result.push_back({row-1, column+2});			//2 right, 1 up
+	if(row <= dimension - 2  and column <= dimension - 3 and this->matrixOfFields(row+1, column+2) == 0) result.push_back({row+1, column+2});	//2 right, 1 down
+	
+	if(row >= 1  and column >= 2 and this->matrixOfFields(row-1, column-2) == 0) result.push_back({row-1, column-2});				//2 left, 1 up
+	if(row <= dimension - 2  and column >= 2 and this->matrixOfFields(row+1, column-2) == 0) result.push_back({row+1, column-2});			//2 left, 1 down
+	
+	if(row >= 2  and column >= 1 and this->matrixOfFields(row-2, column-1) == 0) result.push_back({row-2, column-1});				//1 left, 2 up
+	if(row >= 2  and column <= dimension - 2 and this->matrixOfFields(row-2, column+1) == 0) result.push_back({row-2, column+1});			//1 right, 2 up
+	
+	if(row <= dimension - 3  and column >= 1 and this->matrixOfFields(row+2, column-1) == 0) result.push_back({row+2, column-1});			//1 left, 2 down
+	if(row <= dimension - 3  and column <= dimension - 2 and this->matrixOfFields(row+2, column+1) == 0) result.push_back({row+2, column+1});	//1 right, 2 down
+
+	return result;
+}	
