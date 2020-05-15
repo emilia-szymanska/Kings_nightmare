@@ -99,6 +99,12 @@ void Board::removeMove(unsigned int i, unsigned int j)
 	this->matrixOfFields(i,j) = 0;
 }
 
+void Board::setKnightsPosition(unsigned int i, unsigned int j)
+{
+	this->matrixOfFields(i,j) = this->Knight.first;
+	this->Knight.second = {i,j};
+}
+
 bool Board::isMovePossible(unsigned int i, unsigned int j, unsigned int Figure)
 {
 	if(i >= 0 and i < this->returnSize() and j >= 0 and j < this->returnSize() )  
@@ -169,3 +175,41 @@ vector<pair<unsigned int, unsigned int> > Board::knightsCheck()
 
 	return result;
 }	
+	
+
+vector<pair<unsigned int, unsigned int> > Board::boardToVectors()
+{
+	unsigned int row, column, current;
+	int dimension = this->dimension;
+	vector<pair<unsigned int, unsigned int> > result;	
+	
+	for(row = 0; row < dimension; row++)
+	{
+		for(column = 0; column < dimension; column++)
+		{
+			current = row * dimension + column;
+			if(row >= 1  and column <= dimension - 3 and this->matrixOfFields(row-1, column+2) == 0) 
+				result.push_back({current, (row-1) * dimension + column+2});						//2 right, 1 up
+			if(row <= dimension - 2  and column <= dimension - 3 and this->matrixOfFields(row+1, column+2) == 0) 
+				result.push_back({current, (row+1) *dimension + column+2});						//2 right, 1 down
+	
+			if(row >= 1  and column >= 2 and this->matrixOfFields(row-1, column-2) == 0) 
+				result.push_back({current, (row-1) * dimension + column-2});						//2 left, 1 up
+			if(row <= dimension - 2  and column >= 2 and this->matrixOfFields(row+1, column-2) == 0) 
+				result.push_back({current, (row+1) * dimension + column-2});						//2 left, 1 down
+	
+			if(row >= 2  and column >= 1 and this->matrixOfFields(row-2, column-1) == 0) 
+				result.push_back({current, (row-2) * dimension + column-1});						//1 left, 2 up
+			if(row >= 2  and column <= dimension - 2 and this->matrixOfFields(row-2, column+1) == 0) 
+				result.push_back({current, (row-2) * dimension + column+1});						//1 right, 2 up
+	
+			if(row <= dimension - 3  and column >= 1 and this->matrixOfFields(row+2, column-1) == 0) 
+				result.push_back({current, (row+2) * dimension + column-1});						//1 left, 2 down
+			if(row <= dimension - 3  and column <= dimension - 2 and this->matrixOfFields(row+2, column+1) == 0) 
+				result.push_back({current, (row+2) * dimension + column+1});						//1 right, 2 down
+		
+		}
+	}
+
+	return result;
+}

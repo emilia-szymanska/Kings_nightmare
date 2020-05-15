@@ -15,7 +15,7 @@ class GraphList
 			this->listGraph.resize(NoE);
 		}
 		
-		void addEdge(unsigned int vertex1, unsigned int vertex2, int value)
+		void insertEdge(unsigned int vertex1, unsigned int vertex2, int value)
 		{
 			this->listGraph[vertex1].push_back({vertex2, value});
 		}	

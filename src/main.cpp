@@ -2,54 +2,6 @@
 #include "../inc/DFS.hh"
 #include "../inc/MakePath.hh"
 
-/*
-vector<pair<pair<unsigned int, unsigned int>, unsigned int > > boardToList (Board & board)	//{v1,v2}, cost
-{
-	vector<pair<unsigned int, unsigned int> > knightsMoves = board.knightsPossibleMoves();
-	vector<pair<pair<unsigned int, unsigned int>, unsigned int > > result;
-	vector<pair<pair<unsigned int, unsigned int>, unsigned int > > nextRecursion;
-	unsigned int V1, V2, cost, x, y;
-
-	
-	for(unsigned int i = 0; i < knightsMoves.size(); i++)
-	{
-		x = knightsMoves[i].first;
-	       	y = knightsMoves[i].second;
-		V1 = board.KnightsPosition();
-		V2 = x * board.Size() + y;
-		cost = 1;
-		result.push_back({V1, V2}, cost);
-		board.addMove(x, y, board.KnightsID());
-		if(!board.knightsPossibleMoves().empty())
-			nextRecursion = boardToList(board);	
-		board.removeMove(x, j);
-	}	
-
-	return 
-
-}*/
-
-void boardToList (Board & board, vector<pair<pair<unsigned int, unsigned int>, unsigned int > > & result)	//{v1,v2}, cost
-{
-	vector<pair<unsigned int, unsigned int> > knightsMoves = board.knightsPossibleMoves();
-	vector<pair<pair<unsigned int, unsigned int>, unsigned int > > nextRecursion;
-	unsigned int V1, V2, cost, x, y;
-
-	for(unsigned int i = 0; i < knightsMoves.size(); i++)
-	{
-		x = knightsMoves[i].first;
-	       	y = knightsMoves[i].second;
-		V1 = board.KnightsPosition();
-		V2 = x * board.returnSize() + y;
-		cost = 1;
-		result.push_back({{V1, V2}, cost});
-		board.addMove(x, y, board.KnightsID());
-		if(!board.knightsPossibleMoves().empty())
-			boardToList(board, result);	
-		board.removeMove(x, y);
-	}	
-	return; 
-}
 
 int main()
 {
@@ -67,63 +19,35 @@ int main()
 
 
 	Board board = Board(pairs);
-	cout << board.KnightsPosition() << endl;
+	Board copyBoard = Board(pairs);
+	vector<pair<unsigned int, unsigned int> > trial;
+	trial = board.boardToVectors();
 	
-	/*board.displayBoardOfLetters();
-	board.displayBoard();
-		
-
-	//	void addMove(unsigned int i, unsigned int j, unsigned int Figure);
-	//	void removeMove(unsigned int i, unsigned int j);
-	//	bool isMovePossible(unsigned int i, unsigned int j, unsigned Figure);
-	
-	check = board.knightsCheck();
-	int howManyChecks = check.size();
-	
-
-	vector<unsigned int> Order;
-	Order.push_back(0);
-	Order.push_back(2);
-	Order.push_back(1);
-	Order.push_back(1);
-	Order.push_back(3);
-	Order.push_back(3);
-	Order.push_back(4);
-	Order.push_back(4);
-	Order.push_back(2);
-	Order.push_back(0);
-
-	vector<char> result;
-
-//	result = makePath(Order, 4);	
-	
-	result = makeOrder(Order);
-
-	for(int i = 0; i < result.size(); i++)
-		cout << result[i] << " ";
-	cout << endl;
-	
-
-	unsigned int NoE;
+	unsigned int NoE = 25;
 	
 	GraphList grafik = GraphList(NoE);
-
-		unsigned int KnightsPosition()
 	
-
-	for(int i = 0; i < edge; i++)
+	for(unsigned int i = 0; i < trial.size(); i++)
 	{
-		cin>>v1>>v2>>value;
-		grafik.insertEdge(v1, v2, value);
+		grafik.insertEdge(trial[i].first, trial[i].second, 1);
 	}
 	
 
-	for(int i = 0; i < result.size(); i++)
-		cout << result[i] << " ";
+	vector<int> visited;
+	visited.resize(25);
+       	vector<unsigned int> order;
+       	DFS(grafik, 22, visited, order);
+	vector<char> porzadek = makeOrder(order);
+
+	for(unsigned int i = 0; i < porzadek.size(); i++)
+		cout << porzadek[i] << " ";
 	cout << endl;
-	
-	for(int i = 0; i < howManyChecks; i++)
-		cout << check[i].first << " " << check[i].second << endl;
-*/
+
+/*	vector<char> path = makePath(order, 7);
+
+	for(unsigned int i = 0; i < path.size(); i++)
+		cout << path[i] << " ";
+	cout << endl;
+*/	
 	return 0;
 }

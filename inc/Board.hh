@@ -36,6 +36,11 @@ class Board
 		{
 			return ((this->Knight).second.first * this->dimension + (this->Knight).second.second);
 		}
+		
+		pair<unsigned int, unsigned int> KnightsPositionXY()
+		{
+			return (this->Knight).second;
+		}
 
 		unsigned int KnightsID()
 		{
@@ -46,10 +51,13 @@ class Board
 		void displayBoard();
 		void displayBoardOfLetters();
 		void addMove(unsigned int i, unsigned int j, unsigned int Figure);
+		void setKnightsPosition(unsigned int i, unsigned int j);		//not checking if the field is empty
 		void removeMove(unsigned int i, unsigned int j);
 		bool isMovePossible(unsigned int i, unsigned int j, unsigned Figure);
 		vector<pair<unsigned int, unsigned int> > knightsPossibleMoves();
 		vector<pair<unsigned int, unsigned int> > knightsCheck();
+		vector<pair<unsigned int, unsigned int> > boardToVectors();
+
 };
 
 #endif
