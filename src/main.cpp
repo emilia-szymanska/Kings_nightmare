@@ -97,8 +97,10 @@ int main()
 	cout << endl;
 
 
-	vector<pair<int, int> > aStarResult = AStar(graph, KnightPosition);
-	cout << aStarResult[KingPosition].first << " " << aStarResult[KingPosition].second;
+	pair<int, vector<char> > aStarResult = AStar(graph, KnightPosition, KingPosition);
+	cout << aStarResult.first << endl;
+        for(unsigned int i = 0; i < aStarResult.second.size(); i++)
+		cout << aStarResult.second[i] << " ";
 	cout << endl;
 
 

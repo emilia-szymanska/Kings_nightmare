@@ -13,7 +13,7 @@ int heuristic(unsigned int vector1, unsigned int vector2, unsigned int sizeOfBoa
 }
 
 
-vector<pair<int, int> > AStar(GraphList & graph, unsigned int vertexStart, unsigned int vertexEnd)
+pair<int, vector<char> > AStar(GraphList & graph, unsigned int vertexStart, unsigned int vertexEnd)
 {
 	unsigned int v, cost, neighbour_index, neighbour_edge, neighb_cost, neighb_prev;
 	unsigned int number_of_elements = graph.Size();
@@ -28,7 +28,7 @@ vector<pair<int, int> > AStar(GraphList & graph, unsigned int vertexStart, unsig
 	result[vertexStart].first = 0;
 	priority_queue<pair<pair<int, int>, int > > q;			//cost+heuristic, cost, vertex	
 	q.push({{0, 0}, vertexStart});
-	while(!q.empty())
+	while(!q.empty() and q.top().second != vertexEnd)
 	{
 		cost = -q.top().first.second;
 		v = q.top().second;
@@ -45,10 +45,29 @@ vector<pair<int, int> > AStar(GraphList & graph, unsigned int vertexStart, unsig
 			{       	
 				result[neighbour_index].second = v;
 				result[neighbour_index].first = cost + neighbour_edge;
-				q.push({{ -result[neighbour_index].first - heuristic(neighbour_index, vertex, SizeOfBoard), -result[neighbour_index].first}, neighbour_index});
+				q.push({{ -result[neighbour_index].first - heuristic(neighbour_index, vertexEnd, SizeOfBoard), -result[neighbour_index].first}, neighbour_index});
 			}		
 		}	
 	}
 
-	return result;
+
+	
+	int how_many = 0;
+	pair<int, vector<char> > finalResult;
+	stack<char> Stack;
+	for(int j = vertexEnd; j != -1; j = result[j].second)
+	{
+		Stack.push('A' + j);
+		how_many++;
+	}	
+		
+	while(how_many--)
+	{
+		finalResult.second.push_back((Stack.top()));
+		Stack.pop();
+	}
+	
+	finalResult.first = result[vertexEnd].first;
+
+	return finalResult;
 }
