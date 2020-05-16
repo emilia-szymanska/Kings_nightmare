@@ -32,6 +32,11 @@ class Board
 			return this->dimension; 
 		}
 		
+		unsigned int KingsPosition()
+		{
+			return ((this->King).second.first * this->dimension + (this->King).second.second);
+		}
+		
 		unsigned int KnightsPosition()
 		{
 			return ((this->Knight).second.first * this->dimension + (this->Knight).second.second);

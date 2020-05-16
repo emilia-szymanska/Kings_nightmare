@@ -1,7 +1,7 @@
 #include "../inc/Board.hh"
 #include "../inc/DFS.hh"
 #include "../inc/MakePath.hh"
-
+#include "../inc/AStar.hh"
 
 int main()
 {
@@ -19,6 +19,7 @@ int main()
 	Board board = Board(pairs);								//initializing board
 	
 	unsigned int boardSize = board.returnSize();						//useful variables
+	unsigned int KingPosition = board.KingsPosition();
 	unsigned int KnightPosition = board.KnightsPosition();
 	unsigned int NoE = boardSize * boardSize;
 	vector<pair<unsigned int, unsigned int> > check = board.knightsCheck();
@@ -36,15 +37,19 @@ int main()
 	}
 	
 
-	vector<int> visited;									//DFS
+
+
+	vector<int> visited;									//DFS - all paths
 	visited.resize(NoE);
      	vector<unsigned int> order;
 	vector<vector<char> > path;
 	path.resize(checkFields.size());
-
+	visited[KingPosition] = 1;
 	DFS(graph, KnightPosition, visited, order);
 	
 	vector<char> visitingOrder = makeOrder(order, NoE);					//visiing order
+	cout << endl;
+	cout << "All paths (,,check'' positions as final positions)" << endl;
 	cout << "Visiting order: ";
 
 	for(unsigned int i = 0; i < visitingOrder.size(); i++)
@@ -54,7 +59,7 @@ int main()
 	cout << endl;
 
 	cout << "Paths:" << endl;								//paths to check
-
+	
 	for(unsigned int i = 0; i < checkFields.size(); i++)
 	{
 		path[i] = makePath(order, checkFields[i], NoE); 
@@ -62,6 +67,33 @@ int main()
 			cout << path[i][j] << " ";
 		cout << endl;	
 	}	
-		
+
+	cout << endl;	
+	
+	
+	vector<int> visited2;									//DFS - path to H
+	visited2.resize(NoE);
+     	vector<unsigned int> order2;
+	vector<char> path2;
+	path2.resize(1);
+	DFS(graph, KnightPosition, visited2, order2);
+	
+	vector<char> visitingOrder2 = makeOrder(order2, NoE);					//visiing order
+	cout << "One path (king's position as final position)" << endl;
+	cout << "Visiting order: ";
+
+	for(unsigned int i = 0; i < visitingOrder2.size(); i++)
+	{
+		cout << visitingOrder2[i] << " ";
+	}
+	cout << endl;
+
+	cout << "Path:" << endl;								//path to H
+
+	path2 = makePath(order2, KingPosition, NoE); 
+	for(unsigned int j = 0; j < path2.size(); j++)
+		cout << path2[j] << " ";
+	cout << endl;	
+	cout << endl;	
 	return 0;
 }

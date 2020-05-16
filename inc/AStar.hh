@@ -1,24 +1,11 @@
 #ifndef ASTAR_HH
 #define ASTAR_HH
-#include <vector>
+#include "GraphList.hh"
+#include <queue>
+#include <cmath>
 
-struct AStar_results
-{
-	unsigned int Size;
-	vector<int> cost;
-	vector<int> previous;
-	
-	AStar_results(int Size) 
-	{
-		this->Size = Size;
-		this->distance.resize(Size);
-		this->previous.resize(Size);
-	}
-};
+int heuristic(unsigned int vector1, unsigned int vector2, unsigned int sizeOfBoard);
 
-template <class T>
-AStar_results AStar(T & graph, unsigned int vertex);
-
-#include "../src/AStar.cpp"
+vector<pair<int, int> > AStar(GraphList & graph, unsigned int vertex);			//returns a cost and its vertex
 
 #endif
