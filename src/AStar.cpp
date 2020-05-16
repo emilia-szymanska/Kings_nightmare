@@ -27,7 +27,7 @@ pair<int, vector<char> > AStar(GraphList & graph, unsigned int vertexStart, unsi
 
 	result[vertexStart].first = 0;
 	priority_queue<pair<pair<int, int>, int > > q;			//cost+heuristic, cost, vertex	
-	q.push({{0, 0}, vertexStart});
+	q.push({{0 - heuristic(vertexStart, vertexEnd, SizeOfBoard), 0}, vertexStart});
 	while(!q.empty() and q.top().second != vertexEnd)
 	{
 		cost = -q.top().first.second;
@@ -52,7 +52,7 @@ pair<int, vector<char> > AStar(GraphList & graph, unsigned int vertexStart, unsi
 
 
 	
-	int how_many = 0;
+	int how_many = 0;							//result into a path
 	pair<int, vector<char> > finalResult;
 	stack<char> Stack;
 	for(int j = vertexEnd; j != -1; j = result[j].second)
