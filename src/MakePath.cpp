@@ -1,10 +1,10 @@
 #include "../inc/MakePath.hh"
 
-vector<char> makePath(vector<unsigned int> DFSorder, unsigned int endVertex)
+vector<char> makePath(const vector<unsigned int> & DFSorder, unsigned int endVertex, unsigned int numberOfVertices)
 {
 	vector<char> result;
 	vector<unsigned int> ifSeen;
-	ifSeen.resize(DFSorder.size()/2, 0);
+	ifSeen.resize(numberOfVertices, 0);
 	unsigned int vertex;
 
 	for(unsigned int i = 0; i < DFSorder.size(); i++)
@@ -35,11 +35,11 @@ vector<char> makePath(vector<unsigned int> DFSorder, unsigned int endVertex)
 	return result;
 }
 
-vector<char> makeOrder (vector<unsigned int> DFSorder)
+vector<char> makeOrder (const vector<unsigned int> & DFSorder, unsigned int numberOfVertices)
 {
 	vector<char> result;
 	vector<unsigned int> ifSeen;
-	ifSeen.resize(DFSorder.size()/2, 0);
+	ifSeen.resize(numberOfVertices, 0);
 	unsigned int vertex;
 
 	for(unsigned int i = 0; i < DFSorder.size(); i++)

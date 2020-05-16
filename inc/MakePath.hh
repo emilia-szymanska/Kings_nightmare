@@ -5,8 +5,8 @@
 using namespace std;
 
 
-vector<char> makePath(vector<unsigned int> DFSorder, unsigned int endVertex);
+vector<char> makePath(const vector<unsigned int> & DFSorder, unsigned int endVertex, unsigned int numberOfVertices);
 
-vector<char> makeOrder (vector<unsigned int> DFSorder);
+vector<char> makeOrder (const vector<unsigned int> & DFSorder, unsigned int numberOfVertices);
 
 #endif	
