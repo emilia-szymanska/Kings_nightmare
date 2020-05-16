@@ -49,7 +49,7 @@ int main()
 	
 	vector<char> visitingOrder = makeOrder(order, NoE);					//visiing order
 	cout << endl;
-	cout << "All paths (,,check'' positions as final positions)" << endl;
+	cout << "Paths to all winning positions (,,check'' positions as final positions)" << endl;
 	cout << "Visiting order: ";
 
 	for(unsigned int i = 0; i < visitingOrder.size(); i++)
@@ -97,7 +97,6 @@ int main()
 	cout << endl;
 
 
-	
 	vector<pair<int, int> > aStarResult = AStar(graph, KnightPosition);
 	cout << aStarResult[KingPosition].first << " " << aStarResult[KingPosition].second;
 	cout << endl;

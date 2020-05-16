@@ -13,20 +13,21 @@ int heuristic(unsigned int vector1, unsigned int vector2, unsigned int sizeOfBoa
 }
 
 
-vector<pair<int, int> > AStar(GraphList & graph, int unsigned vertex)
+vector<pair<int, int> > AStar(GraphList & graph, unsigned int vertexStart, unsigned int vertexEnd)
 {
 	unsigned int v, cost, neighbour_index, neighbour_edge, neighb_cost, neighb_prev;
 	unsigned int number_of_elements = graph.Size();
 	vector<pair<int, int> > result;
+	result.resize(number_of_elements);
 	for(unsigned int i = 0; i < number_of_elements; i++)		// making ,,infinity'' values
 	{	
 		result[i].first = -1;					//cost
 		result[i].second = -1;					//previous
 	}
 
-	result[vertex].first = 0;
+	result[vertexStart].first = 0;
 	priority_queue<pair<pair<int, int>, int > > q;			//cost+heuristic, cost, vertex	
-	q.push({{0, 0}, vertex});
+	q.push({{0, 0}, vertexStart});
 	while(!q.empty())
 	{
 		cost = -q.top().first.second;
