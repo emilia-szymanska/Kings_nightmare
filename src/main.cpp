@@ -94,6 +94,14 @@ int main()
 	for(unsigned int j = 0; j < path2.size(); j++)
 		cout << path2[j] << " ";
 	cout << endl;	
-	cout << endl;	
+	cout << endl;
+
+
+	
+	vector<pair<int, int> > aStarResult = AStar(graph, KnightPosition);
+	cout << aStarResult[KingPosition].first << " " << aStarResult[KingPosition].second;
+	cout << endl;
+
+
 	return 0;
 }

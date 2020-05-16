@@ -1,4 +1,5 @@
 #include "../inc/AStar.hh"
+#define SizeOfBoard 5
 
 int heuristic(unsigned int vector1, unsigned int vector2, unsigned int sizeOfBoard)
 {
@@ -12,9 +13,9 @@ int heuristic(unsigned int vector1, unsigned int vector2, unsigned int sizeOfBoa
 }
 
 
-vector<pair<int, int> > AStar(GraphList & graph, int vertex)
+vector<pair<int, int> > AStar(GraphList & graph, int unsigned vertex)
 {
-	unsigned int v, cost, neighbour_index, neighbour_edge;
+	unsigned int v, cost, neighbour_index, neighbour_edge, neighb_cost, neighb_prev;
 	unsigned int number_of_elements = graph.Size();
 	vector<pair<int, int> > result;
 	for(unsigned int i = 0; i < number_of_elements; i++)		// making ,,infinity'' values
@@ -24,11 +25,11 @@ vector<pair<int, int> > AStar(GraphList & graph, int vertex)
 	}
 
 	result[vertex].first = 0;
-	priority_queue<pair<int, int> > q;				//cost, vertex	
-	q.push({0, vertex});
-	while(!q.empty())						//like Dijkstra
+	priority_queue<pair<pair<int, int>, int > > q;			//cost+heuristic, cost, vertex	
+	q.push({{0, 0}, vertex});
+	while(!q.empty())
 	{
-		cost = -q.top().first;
+		cost = -q.top().first.second;
 		v = q.top().second;
 		q.pop();
 		if(cost > result[v].first) continue;
@@ -37,11 +38,13 @@ vector<pair<int, int> > AStar(GraphList & graph, int vertex)
 		{
 			neighbour_index = (*It).first;
 			neighbour_edge = (*It).second;
-			if(result[neighbour_index].first == -1 || result[neighbour_index].first > cost + neighbour_edge)
+			neighb_cost = result[neighbour_index].first;
+		       	neighb_prev = result[neighbour_index].second; 
+			if(neighb_cost == -1 || neighb_cost > cost + neighbour_edge)
 			{       	
 				result[neighbour_index].second = v;
 				result[neighbour_index].first = cost + neighbour_edge;
-				q.push({-result[neighbour_index].first, neighbour_index});
+				q.push({{ -result[neighbour_index].first - heuristic(neighbour_index, vertex, SizeOfBoard), -result[neighbour_index].first}, neighbour_index});
 			}		
 		}	
 	}
